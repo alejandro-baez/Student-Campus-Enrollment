@@ -1,15 +1,17 @@
 FROM python:3.12.8-alpine
 
-RUN pip install poetry==1.8.3
-
 WORKDIR /app
 
-COPY pyproject.toml poetry.lock main ./
+RUN pip install --no-cache-dir poetry==1.8.3
 
-RUN poetry install
+COPY pyproject.toml poetry.lock ./
 
-ENTRYPOINT [ "poetry","run","python","-m","main" ]
+RUN poetry config virtualenvs.create false \
+    && poetry install 
+
+COPY . .
+
+# ENTRYPOINT [ "poetry","run","python","-m","main" ]
+EXPOSE 80
 
 CMD [ "uvicorn" , "main:app" , "--host" , "0.0.0.0" , "--port", "80" ]
-
-EXPOSE 80

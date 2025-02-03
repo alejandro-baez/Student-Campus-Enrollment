@@ -17,9 +17,11 @@ Creating a RESTful web application that allows you to manage students and campus
     - Alembic (Datbase Migration)
     - SQLAlchemy + Psycopg2
     - Pydantic
+    - Poetry
     - Docker
 
 - #### FrontEnd:
     - React / Redux
     - Tailwind
     - Docker
+
