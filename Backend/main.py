@@ -1,11 +1,7 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, DeclarativeBase
+from fastapi import FastAPI
 
-URL_DATABASE = 'postgres://localhost:5432/campus_db'
+app  = FastAPI()
 
-engine = create_engine(URL_DATABASE)
-
-Session = sessionmaker(bind=engine)
-
-class Base(DeclarativeBase):
-    pass
+@app.get('/')
+async def hello_world():
+    return 'Hello World'
