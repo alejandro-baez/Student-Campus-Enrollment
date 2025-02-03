@@ -1,8 +1,11 @@
 services:
   backend:
-    build: ./Backend
+    build: ./Backend #Points to the Backend folder, where Dockerfile is located
     ports:
       - "80:80"
+    volumes:
+      - ./Backend:/app # Mounts our Backend folder into /app inside container
+    working_dir: /app # Sets working directory inside the container
     environment:
       - ENV=production
     command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
