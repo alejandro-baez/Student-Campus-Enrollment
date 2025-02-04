@@ -1,6 +1,8 @@
 services:
   backend:
     build: ./Backend #Points to the Backend folder, where Dockerfile is located
+    depends_on:
+      - db
     ports:
       - "80:80"
     volumes:
@@ -8,9 +10,31 @@ services:
     working_dir: /app # Sets working directory inside the container
     environment:
       - ENV=production
+      - DB_HOST=db
+      - DATABASE_URL=postgresql://myuser:password@db:5432/campus_db
     command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
     networks:
       - app-network
+
+  db:
+    image: postgres:15
+    expose:
+      - "5432"
+    networks:
+      - app-network
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: campus_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
 
 networks:
   app-network:
