@@ -1,6 +1,6 @@
 from logging.config import fileConfig
 
-from sqlalchemy import engine_from_config
+from sqlalchemy import engine_from_config,create_engine
 from sqlalchemy import pool
 from models import Base
 
@@ -42,13 +42,16 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    url = config.get_main_option("sqlalchemy.url")
-    context.configure(
-        url=url,
-        target_metadata=target_metadata,
-        literal_binds=True,
-        dialect_opts={"paramstyle": "named"},
-    )
+    # url = config.get_main_option("sqlalchemy.url")
+    # context.configure(
+    #     url=url,
+    #     target_metadata=target_metadata,
+    #     literal_binds=True,
+    #     dialect_opts={"paramstyle": "named"},
+    # )
+
+    connectable = create_engine(DATABASEURL)
+
 
     with context.begin_transaction():
         context.run_migrations()

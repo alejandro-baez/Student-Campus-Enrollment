@@ -10,3 +10,4 @@ class User(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str]
+    age: Mapped[int]
