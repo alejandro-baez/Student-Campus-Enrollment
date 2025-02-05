@@ -2,3 +2,5 @@ poetry.lock
 Backend/__pycache__/
 
 Learning.md
+
+node_modules/
