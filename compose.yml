@@ -6,7 +6,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./Backend:/app # Mounts our Backend folder into /app inside container
+      - ./Backend:/app # Mounts our Backend folder into /app inside container, allowing for hot reload
     working_dir: /app # Sets working directory inside the container
     environment:
       - ENV=production
