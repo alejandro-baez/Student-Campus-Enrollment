@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 import models
 from database import engine, SessionLocal
 from typing import Annotated,Optional
@@ -48,5 +48,38 @@ async def get_all_students(db:db_dependency):
     db_all_students = db.query(models.Student).all()
     return db_all_students
 
-    
 
+@app.get('/students/{student_id}')
+async def get_single_student(student_id:int, db:db_dependency):
+    db_student = db.query(models.Student).filter_by(id=student_id).one_or_none()
+    return {"student":db_student}
+
+
+@app.put('/students/{student_id}')
+async def update_student(student:StudentBase,student_id:int,db:db_dependency):
+    db_student = db.query(models.Student).filter_by(id=student_id).one_or_none()
+
+    if not db_student:
+        raise HTTPException(status_code=404,detail='Student not found')
+    
+    for key,value in student.model_dump(exclude_unset=True).items():
+        setattr(db_student,key,value)
+    
+    db.commit()
+    db.refresh(db_student)
+
+    return db_student
+
+
+@app.delete('/students/{student_id}')
+async def delete_student(student_id:int,db:db_dependency):
+    db_student = db.query(models.Student).filter_by(id=student_id).one_or_none()
+
+    if not db_student:
+        raise HTTPException(status_code=404,detail='Student not found')
+    
+    db.delete(db_student)
+    db.commit()
+
+    return {'message':"Student deleted successfully"}
+    
