@@ -35,7 +35,7 @@ db_dependency = Annotated[Session, Depends(get_db)]
 async def hello_world():
     return "Hello Worldssssss"
 
-@app.post('/student')
+@app.post('/students')
 async def create_student(student: StudentBase, db: db_dependency):
     db_student = models.Student(**student.model_dump(exclude_unset=True))
     db.add(db_student)
@@ -43,4 +43,10 @@ async def create_student(student: StudentBase, db: db_dependency):
     db.refresh(db_student)
     return {"student": db_student}
 
+@app.get('/students')
+async def get_all_students(db:db_dependency):
+    db_all_students = db.query(models.Student).all()
+    return db_all_students
+
+    
 
