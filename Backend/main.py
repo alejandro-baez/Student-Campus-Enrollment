@@ -1,10 +1,10 @@
 from fastapi import FastAPI, Depends
 import models
 from database import engine, SessionLocal
-from typing import Annotated
+from typing import Annotated,Optional
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, EmailStr, Field
-import uuid
+# import uuid
 
 
 
@@ -14,11 +14,11 @@ models.Base.metadata.create_all(bind=engine)
 
 # Pydantic models
 class StudentBase(BaseModel):
-    id: uuid.UUID
+    id: int
     first_name: str
     last_name: str
     email: EmailStr
-    imageUrl: str
+    imageUrl: Optional[str] = None
     gpa: Annotated[float,Field(ge=0,le=4)]
 
 
@@ -37,7 +37,7 @@ async def hello_world():
 
 @app.post('/student')
 async def create_student(student: StudentBase, db: db_dependency):
-    db_student = models.Student(first_name=student.first_name, last_name=student.last_name, email=student.email, imageUrl=student.imageUrl,gpa=student.gpa)
+    db_student = models.Student(**student.model_dump(exclude_unset=True))
     db.add(db_student)
     db.commit()
     db.refresh(db_student)
