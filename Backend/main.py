@@ -1,10 +1,11 @@
 from fastapi import FastAPI, Depends
 import models
-from database import engine, Session
+from database import engine, SessionLocal
 from typing import Annotated
-from sqlalchemy import Session
+from sqlalchemy.orm import Session
 from pydantic import BaseModel, EmailStr, Field
 import uuid
+
 
 
 app = FastAPI()
@@ -22,14 +23,24 @@ class StudentBase(BaseModel):
 
 
 def get_db():
-    session = Session()
+    session = SessionLocal()
     try:
         yield session
     finally:
         session.close()
 
-db_dependency = Annotated(Session, Depends(get_db))
+db_dependency = Annotated[Session, Depends(get_db)]
 
 @app.get("/")
 async def hello_world():
     return "Hello Worldssssss"
+
+@app.post('/student')
+async def create_student(student: StudentBase, db: db_dependency):
+    db_student = models.Student(first_name=student.first_name, last_name=student.last_name, email=student.email, imageUrl=student.imageUrl,gpa=student.gpa)
+    db.add(db_student)
+    db.commit()
+    db.refresh(db_student)
+    return {"student": db_student}
+
+

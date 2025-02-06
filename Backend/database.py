@@ -5,4 +5,4 @@ URL_DATABASE ="postgresql://myuser:password@db:5432/campus_db"
 
 engine = create_engine(URL_DATABASE)
 
-Session = sessionmaker(bind=engine)
+SessionLocal = sessionmaker(bind=engine)
