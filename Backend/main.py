@@ -33,7 +33,8 @@ db_dependency = Annotated[Session, Depends(get_db)]
 
 @app.get("/")
 async def hello_world():
-    return "Hello Worldssssss"
+    return {'status': 'endpoints running'}
+
 
 @app.post('/students')
 async def create_student(student: StudentBase, db: db_dependency):
@@ -82,4 +83,6 @@ async def delete_student(student_id:int,db:db_dependency):
     db.commit()
 
     return {'message':"Student deleted successfully"}
-    
+
+
+# Campuses Routes

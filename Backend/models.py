@@ -17,3 +17,10 @@ class Student(Base):
     gpa: Mapped[float]
 
 
+class Campus(Base):
+    __tablename__ = "campuses"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    imageUrl: Mapped[Optional[str]] = mapped_column(nullable=False, default="https://www.cuny.edu/wp-content/uploads/sites/4/page-assets/home-preview/colleges/layout/City-College-Photo-Request-2017_48_CarlosParker_HarrisHall.jpg")
+    address: Mapped[str] = mapped_column(nullable=False)
+    description: Mapped[str]
