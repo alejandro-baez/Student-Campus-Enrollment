@@ -98,3 +98,9 @@ async def create_campus(campus: CampusBase, db:db_dependency):
     db.commit()
     db.refresh(db_campus)
     return {'campus':db_campus}
+
+
+@app.get('/campuses')
+async def get_all_campuses(db:db_dependency):
+    db_all_campuses = db.query(models.Campus).all()
+    return db_all_campuses
