@@ -21,6 +21,12 @@ class StudentBase(BaseModel):
     imageUrl: Optional[str] = None
     gpa: Annotated[float,Field(ge=0,le=4)]
 
+class CampusBase(BaseModel):
+    name: str
+    imageUrl: Optional[str] = None
+    address: str
+    description: str
+
 
 def get_db():
     session = SessionLocal()
@@ -85,4 +91,4 @@ async def delete_student(student_id:int,db:db_dependency):
     return {'message':"Student deleted successfully"}
 
 
-# Campuses Routes
+# Campuses Route
