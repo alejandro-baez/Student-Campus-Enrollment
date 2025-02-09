@@ -14,7 +14,6 @@ models.Base.metadata.create_all(bind=engine)
 
 # Pydantic models
 class StudentBase(BaseModel):
-    id: int
     first_name: str
     last_name: str
     email: EmailStr
@@ -92,3 +91,10 @@ async def delete_student(student_id:int,db:db_dependency):
 
 
 # Campuses Route
+@app.post('/campuses')
+async def create_campus(campus: CampusBase, db:db_dependency):
+    db_campus = models.Campus(**campus.model_dump(exclude_unset=True))
+    db.add(db_campus)
+    db.commit()
+    db.refresh(db_campus)
+    return {'campus':db_campus}
