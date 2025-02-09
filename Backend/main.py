@@ -103,4 +103,17 @@ async def create_campus(campus: CampusBase, db:db_dependency):
 @app.get('/campuses')
 async def get_all_campuses(db:db_dependency):
     db_all_campuses = db.query(models.Campus).all()
+
+    if not db_all_campuses:
+        raise HTTPException(status_code=404,detail="No campuses")
     return db_all_campuses
+
+
+@app.get('/campuses/{campus_id}')
+async def get_single_campus(campus_id: int,db:db_dependency):
+    db_campus = db.query(models.Campus).filter_by(id=campus_id).one_or_none()
+    
+    if not db_campus:
+        raise HTTPException(status_code=404,detail="Campus not found")
+    
+    return {'campus':db_campus}
