@@ -20,6 +20,13 @@ class StudentBase(BaseModel):
     imageUrl: Optional[str] = None
     gpa: Annotated[float,Field(ge=0,le=4)]
 
+class UpdateStudent(BaseModel):
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    email: Optional[EmailStr] = None
+    imageUrl: Optional[str] = None
+    gpa: Optional[Annotated[float,Field(ge=0,le=4)]] = None
+
 class CampusBase(BaseModel):
     name: str
     imageUrl: Optional[str] = None
@@ -67,7 +74,7 @@ async def get_single_student(student_id:int, db:db_dependency):
 
 
 @app.put('/students/{student_id}')
-async def update_student(student:StudentBase,student_id:int,db:db_dependency):
+async def update_student(student:UpdateStudent,student_id:int,db:db_dependency):
     db_student = db.query(models.Student).filter_by(id=student_id).one_or_none()
 
     if not db_student:
