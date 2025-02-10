@@ -147,3 +147,15 @@ async def update_campus(campus:UpdateBase,campus_id:int,db:db_dependency):
     db.refresh(db_campus)
 
     return db_campus
+
+@app.delete('/campus/{campus_id}')
+async def delete_campus(campus_id:int,db:db_dependency):
+    db_campus = db.query(models.Campus).filter_by(id=campus_id).one_or_none()
+
+    if not db_campus:
+        raise HTTPException(status_code=404,detail='Campus not found')
+
+    db.delete(db_campus)
+    db.commit()
+
+    return {'message':'Student deleted successfully'}
