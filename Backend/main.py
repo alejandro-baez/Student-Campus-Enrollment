@@ -26,6 +26,11 @@ class CampusBase(BaseModel):
     address: str
     description: str
 
+class UpdateBase(BaseModel):
+    name: Optional[str] = None
+    imageUrl: Optional[str] = None
+    address: Optional[str] = None
+    description: Optional[str] = None
 
 def get_db():
     session = SessionLocal()
@@ -91,6 +96,7 @@ async def delete_student(student_id:int,db:db_dependency):
 
 
 # Campuses Route
+
 @app.post('/campuses')
 async def create_campus(campus: CampusBase, db:db_dependency):
     db_campus = models.Campus(**campus.model_dump(exclude_unset=True))
@@ -106,6 +112,7 @@ async def get_all_campuses(db:db_dependency):
 
     if not db_all_campuses:
         raise HTTPException(status_code=404,detail="No campuses")
+    
     return db_all_campuses
 
 
@@ -117,3 +124,19 @@ async def get_single_campus(campus_id: int,db:db_dependency):
         raise HTTPException(status_code=404,detail="Campus not found")
     
     return {'campus':db_campus}
+
+
+@app.put('/campus/{campus_id}')
+async def update_campus(campus:UpdateBase,campus_id:int,db:db_dependency):
+    db_campus = db.query(models.Campus).filter_by(id=campus_id).one_or_none()
+
+    if not db_campus:
+        raise HTTPException(status_code=404, detail='Campus not found')
+
+    for key,value in campus.model_dump(exclude_unset=True).items():
+         setattr(db_campus,key,value)
+    
+    db.commit()
+    db.refresh(db_campus)
+
+    return db_campus
