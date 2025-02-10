@@ -48,12 +48,12 @@ def get_db():
 
 db_dependency = Annotated[Session, Depends(get_db)]
 
-@app.get("/")
+@app.get("/api/")
 async def hello_world():
     return {'status': 'endpoints running'}
 
 
-@app.post('/students')
+@app.post('/api/students')
 async def create_student(student: StudentBase, db: db_dependency):
     db_student = models.Student(**student.model_dump(exclude_unset=True))
     db.add(db_student)
@@ -61,19 +61,19 @@ async def create_student(student: StudentBase, db: db_dependency):
     db.refresh(db_student)
     return {"student": db_student}
 
-@app.get('/students')
+@app.get('/api/students')
 async def get_all_students(db:db_dependency):
     db_all_students = db.query(models.Student).all()
     return db_all_students
 
 
-@app.get('/students/{student_id}')
+@app.get('/api/students/{student_id}')
 async def get_single_student(student_id:int, db:db_dependency):
     db_student = db.query(models.Student).filter_by(id=student_id).one_or_none()
     return {"student":db_student}
 
 
-@app.put('/students/{student_id}')
+@app.put('/api/students/{student_id}')
 async def update_student(student:UpdateStudent,student_id:int,db:db_dependency):
     db_student = db.query(models.Student).filter_by(id=student_id).one_or_none()
 
@@ -89,7 +89,7 @@ async def update_student(student:UpdateStudent,student_id:int,db:db_dependency):
     return db_student
 
 
-@app.delete('/students/{student_id}')
+@app.delete('/api/students/{student_id}')
 async def delete_student(student_id:int,db:db_dependency):
     db_student = db.query(models.Student).filter_by(id=student_id).one_or_none()
 
@@ -104,7 +104,7 @@ async def delete_student(student_id:int,db:db_dependency):
 
 # Campuses Route
 
-@app.post('/campuses')
+@app.post('/api/campuses')
 async def create_campus(campus: CampusBase, db:db_dependency):
     db_campus = models.Campus(**campus.model_dump(exclude_unset=True))
     db.add(db_campus)
@@ -113,7 +113,7 @@ async def create_campus(campus: CampusBase, db:db_dependency):
     return {'campus':db_campus}
 
 
-@app.get('/campuses')
+@app.get('/api/campuses')
 async def get_all_campuses(db:db_dependency):
     db_all_campuses = db.query(models.Campus).all()
 
@@ -123,7 +123,7 @@ async def get_all_campuses(db:db_dependency):
     return db_all_campuses
 
 
-@app.get('/campuses/{campus_id}')
+@app.get('/api/campuses/{campus_id}')
 async def get_single_campus(campus_id: int,db:db_dependency):
     db_campus = db.query(models.Campus).filter_by(id=campus_id).one_or_none()
     
@@ -133,7 +133,7 @@ async def get_single_campus(campus_id: int,db:db_dependency):
     return {'campus':db_campus}
 
 
-@app.put('/campus/{campus_id}')
+@app.put('/api/campus/{campus_id}')
 async def update_campus(campus:UpdateBase,campus_id:int,db:db_dependency):
     db_campus = db.query(models.Campus).filter_by(id=campus_id).one_or_none()
 
@@ -148,7 +148,7 @@ async def update_campus(campus:UpdateBase,campus_id:int,db:db_dependency):
 
     return db_campus
 
-@app.delete('/campus/{campus_id}')
+@app.delete('/api/campus/{campus_id}')
 async def delete_campus(campus_id:int,db:db_dependency):
     db_campus = db.query(models.Campus).filter_by(id=campus_id).one_or_none()
 
