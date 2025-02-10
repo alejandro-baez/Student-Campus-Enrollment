@@ -7,13 +7,14 @@ import Campuses from './components/Campuses'
 
 function App() {
   return(
-    <div>
+    <div id='body'>
       <Navbar/>
-      <Routes>
-        <Route path='/' element={<Homepage/>}/>
-        <Route path='/campuses' element={<Campuses/>}/>
-
-      </Routes>
+      <main>
+        <Routes>
+          <Route path='/' element={<Homepage/>}/>
+          <Route path='/campuses' element={<Campuses/>}/>
+        </Routes>
+      </main>
       <Footer/>
     </div>
   )
