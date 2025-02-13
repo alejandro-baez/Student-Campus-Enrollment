@@ -1,52 +1,8 @@
 @import 'tailwindcss';
 
-/* 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@layer{
+  .section-container{
+    @apply max-w-[1440px] container mx-auto px-4 py-5;
+  }
 }
 
-#body {
-  min-height: 100vh; 
-  font-family: sans-serif;
-  font-size: 1.5rem;
-  display: flex;
-  flex-direction: column;
-}
-
-#nav, #footer{
-  display: grid;
-  place-content: center;
-  text-align: center;
-  grid-template-columns: 100%;
-  position: sticky;
-}
-
-#nav{
-  top:0;
-  border-bottom: 3px solid #000;
-  width: 100%;
-  display: flex;
-  height: 5vh;
-  margin-top: 40px;
-}
-
-.logo{
-  width: 80%;
-  display: flex;
-  justify-content: flex-start;
-  padding-left: 1.5rem;
-
-}
-
-#footer{
-  bottom: 0;
-}
-
-
-main{
-  display: flex;
-  flex-grow: 1;
-
-} */

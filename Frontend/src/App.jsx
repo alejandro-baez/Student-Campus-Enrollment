@@ -7,9 +7,9 @@ import Campuses from './components/Campuses'
 
 function App() {
   return(
-    <div id='body'>
+    <div className='flex flex-col min-h-screen'>
       <Navbar/>
-      <main>
+      <main className='flex'>
         <Routes>
           <Route path='/' element={<Homepage/>}/>
           <Route path='/campuses' element={<Campuses/>}/>
