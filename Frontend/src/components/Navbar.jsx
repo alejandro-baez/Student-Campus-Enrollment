@@ -4,7 +4,7 @@ import Logo from '../assets/grad-cap.png'
 
 const Navbar = () => {
   return (
-    <header className='max-w-[1440px] container mx-auto px-4 py-5 flex justify-between border-b-2 sticky top-0 '>
+    <header className='max-w-[1440px] container mx-auto px-4 py-5 flex justify-between border-b-2 '>
         {/* logo and name */}
         <div >
             <Link to='/' className='flex items-center gap-x-1'>

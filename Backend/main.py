@@ -110,7 +110,7 @@ async def create_campus(campus: CampusBase, db:db_dependency):
     db.add(db_campus)
     db.commit()
     db.refresh(db_campus)
-    return {'campus':db_campus}
+    return db_campus
 
 
 @app.get('/api/campuses')
