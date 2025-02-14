@@ -1,7 +1,7 @@
 import React, {useEffect,useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { fetchSingleCampus } from '../features/singleCampusSlice'
+import { fetchSingleCampus,updateSingleCampus } from '../features/singleCampusSlice'
 
 
 const SingleCampus = () => {
@@ -9,7 +9,19 @@ const SingleCampus = () => {
     const dispatch = useDispatch()
     const campus = useSelector((state) => state.singleCampus.singleCampus.campus)
     const [loading,setLoading] = useState(true)
-    console.log(campus)
+
+    const [name, setName] = useState("");
+    const [address, setAddress] = useState("");
+    const [description, setDescription] = useState("");
+
+    const handleUpdate = async (evt) => {
+        evt.preventDefault();
+        await dispatch(updateSingleCampus({ id, name, address, description }));
+        await dispatch(fetchSingleCampus(id))
+        setName("");
+        setAddress("");
+        setDescription("");
+    };
     
     useEffect(()=> {
         const fetchData = async () =>{
@@ -19,10 +31,10 @@ const SingleCampus = () => {
         }
 
         fetchData()
-    },[dispatch,id])
+    },[dispatch])
 
     if (loading || !campus) {
-        return <div>Loading...</div>; // Prevents errors on first render
+        return <div>Loading...</div>; 
     }
 
   return (
@@ -38,16 +50,16 @@ const SingleCampus = () => {
 
         {/* update form */}
         <div className='w-[100%]'>
-            <form className='form-section text-center space-y-1' >
+            <form className='form-section text-center space-y-1' onSubmit={handleUpdate} >
                 <span className='font-bold text-lg'>Update Campus</span>
                 <label htmlFor="name">Name</label>
-                <input type="text" placeholder='name' className=' input-field text-center' />
+                <input type="text" placeholder='name' className=' input-field text-center' value={name} onChange={e=> setName(e.target.value)}/>
 
                 <label htmlFor="address">Address</label>
-                <input type="text" placeholder='address'className=' input-field text-center' />
+                <input type="text" placeholder='address'className=' input-field text-center' value={address} onChange={e=> setAddress(e.target.value)} />
                 
                 <label htmlFor="description">Description</label>
-                <input type="text" placeholder='description' className=' input-field text-center' />
+                <input type="text" placeholder='description' className=' input-field text-center' value={description} onChange={e=> setDescription(e.target.value)} />
 
                 <button className='submit-btn'>Update</button>
             </form>

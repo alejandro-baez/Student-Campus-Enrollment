@@ -17,7 +17,24 @@ export const fetchSingleCampus = createAsyncThunk(
     }
   );
 
-  export const deleteSingleCampus = createAsyncThunk(
+  export const updateSingleCampus = createAsyncThunk(
+    "campus/update",
+    async ({ id, name, address, description }) => {
+      try {
+        const { data } = await axios.put(`/api/campuses/${id}`, {
+          name,
+          address,
+          description,
+        });
+        return data;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  );
+  
+
+export const deleteSingleCampus = createAsyncThunk(
     "campus/delete",
     async (id) => {
       try {
@@ -40,6 +57,9 @@ const singleCampusSlice = createSlice({
           });
         builder.addCase(deleteSingleCampus.fulfilled, (state, action) => {
             state.singleCampus = {};
+          });
+        builder.addCase(updateSingleCampus.fulfilled, (state, action) => {
+            state.singleCampus = action.payload;
           });
 
     }
