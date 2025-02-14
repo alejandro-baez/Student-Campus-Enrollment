@@ -18,3 +18,7 @@
   }
 }
 
+.form-section{
+  @apply flex flex-col shadow-md px-8 pb-8 mb-4 max-w-md mx-auto;
+}
+

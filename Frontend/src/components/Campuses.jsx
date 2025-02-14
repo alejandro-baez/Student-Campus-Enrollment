@@ -50,7 +50,7 @@ const Campuses = () => {
 
             {/* form add */}
             <div>
-                <form onSubmit={handleSubmitCreate} className='flex flex-col shadow-md px-8 pb-8 mb-4 max-w-md mx-auto '>
+                <form onSubmit={handleSubmitCreate} className='form-section'>
                     <span className='text-lg font-semibold mb-4'>Add Campus</span>
                     <label htmlFor="name" className='label-form'> Name</label>
                     <input type="text" placeholder='name' value={name} onChange={e=>setName(e.target.value)} required='required' className='input-field'/>
