@@ -133,7 +133,7 @@ async def get_single_campus(campus_id: int,db:db_dependency):
     return {'campus':db_campus}
 
 
-@app.put('/api/campus/{campus_id}')
+@app.put('/api/campuses/{campus_id}')
 async def update_campus(campus:UpdateBase,campus_id:int,db:db_dependency):
     db_campus = db.query(models.Campus).filter_by(id=campus_id).one_or_none()
 
@@ -148,7 +148,7 @@ async def update_campus(campus:UpdateBase,campus_id:int,db:db_dependency):
 
     return db_campus
 
-@app.delete('/api/campus/{campus_id}')
+@app.delete('/api/campuses/{campus_id}')
 async def delete_campus(campus_id:int,db:db_dependency):
     db_campus = db.query(models.Campus).filter_by(id=campus_id).one_or_none()
 

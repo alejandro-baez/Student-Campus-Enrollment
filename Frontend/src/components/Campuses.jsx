@@ -1,6 +1,7 @@
 import React, {useEffect,useState} from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 import {fetchAllCampuses, addCampus} from '../features/campusesSlice'
+import { deleteSingleCampus } from '../features/singleCampusSlice'
 import { Link } from 'react-router-dom'
 
 const Campuses = () => {
@@ -19,6 +20,12 @@ const Campuses = () => {
         setAddress("");
         setDescription('')
       };
+    
+      const handleDelete = async (evt) => {
+        evt.preventDefault();
+        await dispatch(deleteSingleCampus(evt.target.value));
+        await dispatch(fetchAllCampuses());
+      };
 
     useEffect(()=>{
         dispatch(fetchAllCampuses())
@@ -35,7 +42,7 @@ const Campuses = () => {
                             <img src={campus.imageUrl} />
                             <div className='flex flex-col items-center'>
                                 <p>{campus.description}</p>
-                                <button className='bg-red-400 h-5 w-5 flex items-center justify-center hover:cursor-pointer text-white  border-black hover:bg-red-600 mt-2 font-semibold shadow'>X</button>
+                                <button onClick={handleDelete} value={campus.id} className='bg-red-400 h-5 w-5 flex items-center justify-center hover:cursor-pointer text-white  border-black hover:bg-red-600 mt-2 font-semibold shadow'>X</button>
                             </div>
                         </Link>
                     ))}
