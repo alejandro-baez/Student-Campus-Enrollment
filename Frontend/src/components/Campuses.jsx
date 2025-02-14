@@ -30,7 +30,7 @@ const Campuses = () => {
             <div>
                 {
                     campuses.map((campus) =>(
-                        <Link to='/' key={campus.id} className='shadow-md space-y-1 px-8 py-8 mb-4 w-50 h-50 text-center flex flex-col justify-center hover:scale-105 duration-200 ease-in-out'>
+                        <Link to={`/campuses/${campus.id}`} key={campus.id} className='shadow-md space-y-1 px-8 py-8 mb-4 w-50 h-50 text-center flex flex-col justify-center hover:scale-105 duration-200 ease-in-out'>
                             <h3 className='font-semibold w-full text-center'>{campus.name}</h3>
                             <img src={campus.imageUrl} />
                             <div className='flex flex-col items-center'>
