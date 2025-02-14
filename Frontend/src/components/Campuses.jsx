@@ -30,17 +30,14 @@ const Campuses = () => {
             <div>
                 {
                     campuses.map((campus) =>(
-                        <div key={campus.id} className='shadow-md px-8 py-8 mb-4 w-50'>
-                            <h3>{campus.name}</h3>
-                            <img src={campus.imageUrl} className='w-50'/>
-                            <div>
-                                {/* change to single campus */}
-                                <Link to='/'>
-                                    <p>Details for {campus.name}</p>
-                                </Link>
-                                <button className='bg-red-600 text-white w-4 border-black'>X</button>
+                        <Link to='/' key={campus.id} className='shadow-md space-y-1 px-8 py-8 mb-4 w-50 h-50 text-center flex flex-col justify-center hover:scale-105 duration-200 ease-in-out'>
+                            <h3 className='font-semibold w-full text-center'>{campus.name}</h3>
+                            <img src={campus.imageUrl} />
+                            <div className='flex flex-col items-center'>
+                                <p>{campus.description}</p>
+                                <button className='bg-red-400 h-5 w-5 flex items-center justify-center hover:cursor-pointer text-white  border-black hover:bg-red-600 mt-2 font-semibold shadow'>X</button>
                             </div>
-                        </div>
+                        </Link>
                     ))}
             </div>
 
@@ -56,7 +53,7 @@ const Campuses = () => {
 
                     <label htmlFor="description" className='label-form'>Description</label>
                     <input type="text" placeholder='description' value={description} onChange={e=> setDescription(e.target.value)} className='input-field'/>
-                    <button type='submit' className='submit-btn'>Create</button>
+                    <button type='submit' className='submit-btn hover:scale-102 duration-200 ease-in-out'>Create</button>
                 </form>
             </div>
         </section>
