@@ -37,12 +37,12 @@ const Campuses = () => {
             <div>
                 {
                     campuses.map((campus) =>(
-                        <Link to={`/campuses/${campus.id}`} key={campus.id} className='shadow-md space-y-1 px-8 py-8 mb-4 w-50 h-50 text-center flex flex-col justify-center hover:scale-105 duration-200 ease-in-out'>
+                        <Link to={`/campuses/${campus.id}`} key={campus.id} className='card-section'>
                             <h3 className='font-semibold w-full text-center'>{campus.name}</h3>
                             <img src={campus.imageUrl} />
                             <div className='flex flex-col items-center'>
                                 <p>{campus.description}</p>
-                                <button onClick={handleDelete} value={campus.id} className='bg-red-400 h-5 w-5 flex items-center justify-center hover:cursor-pointer text-white  border-black hover:bg-red-600 mt-2 font-semibold shadow'>X</button>
+                                <button onClick={handleDelete} value={campus.id} className='remove-btn'>X</button>
                             </div>
                         </Link>
                     ))}
