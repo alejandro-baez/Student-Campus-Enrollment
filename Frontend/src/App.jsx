@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Campuses from './components/Campuses'
 import SingleCampus from './components/SingleCampus'
+import Students from './components/Students'
 
 function App() {
   return(
@@ -15,6 +16,7 @@ function App() {
           <Route path='/' element={<Homepage/>}/>
           <Route path='/campuses' element={<Campuses/>}/>
           <Route path='/campuses/:id' element={<SingleCampus/>} />
+          <Route path='/students' element={<Students/>} />
         </Routes>
       </main>
       <Footer/>
