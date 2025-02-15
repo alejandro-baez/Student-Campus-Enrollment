@@ -1,15 +1,25 @@
 import React,{useEffect,useState} from 'react'
-import { fetchAllStudents } from '../features/studentsSlice'
+import { fetchAllStudents, addStudent } from '../features/studentsSlice'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllCampuses } from '../features/campusesSlice'
 
 
 const Students = () => {
+    const [first_name, setFirstName] = useState("");
+    const [last_name, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [gpa,setGPA] = useState('')
+    const [campus_id, setCampusId] = useState("");
+    
     const dispatch = useDispatch();
     const students = useSelector(state => state.students.students)
     const campuses = useSelector(state => state.campuses.campuses)
-    console.log(campuses)
+    
+    const handleSubmitCreate = async (evt) => {
+        evt.preventDefault();
+        await dispatch(addStudent({ first_name, last_name, email, gpa, campus_id }));
+      };
 
     useEffect(()=>{
         dispatch(fetchAllStudents())
@@ -33,22 +43,26 @@ const Students = () => {
         </div>
         {/* add student form */}
         <div>
-            <form className='form-section'>
+            <form className='form-section' onSubmit={handleSubmitCreate}>
                 <span className='text-lg font-semibold mb-4'>Add Student</span>
+
                 <label htmlFor="first-name" className='label-form'>First Name</label>
-                <input className='input-field' type='text'/>
+                <input className='input-field' type='text' value={first_name} onChange={e=>setFirstName(e.target.value)}/>
 
                 <label htmlFor="last-name" className='label-form'>Last Name</label>
-                <input className='input-field' type='text'/>
+                <input className='input-field' type='text' value={last_name} onChange={e=>setLastName(e.target.value)}/>
 
-                <label htmlFor="last-name" className='label-form'>Email</label>
-                <input className='input-field' type='text'/>
+                <label htmlFor="last-name" className='label-form' >Email</label>
+                <input className='input-field' type='text' value={email} onChange={e=>setEmail(e.target.value)}/>
+
+                <label htmlFor="gpa" className='label-form'>GPA</label>
+                <input type="text" className='input-field' value={gpa} onChange={e=> setGPA(parseFloat(e.target.value))}/>
 
                 <label htmlFor="last-name" className='label-form'>Campus</label>
-                <select className='input-field'>
+                <select className='input-field' onChange={e=>setCampusId(parseInt(e.target.value))}>
                     {
                         campuses.map(campus=>(
-                            <option value={campus.id} key={campus.id}>{campus.name}</option>
+                            <option value={campus.id} key={campus.id}>{campus.name} </option>
                         ))
                     }
                 </select>
