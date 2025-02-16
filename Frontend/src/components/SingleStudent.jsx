@@ -41,8 +41,38 @@ const SingleStudent = () => {
   return (
     <section>
         {/* student*/}
+        <div>
+            <h1>{student.first_name} {student.last_name}</h1>
+            <img src={student.imageUrl}/>
+            <p>{student.email}</p>
+            <div>
+                <p>Attending: {studentCampus[0].name}</p>
+                <p>GPA: {student.gpa}</p>
+
+            </div>
+        </div>
 
         {/* update form */}
+        <div>
+            <form>
+                <span>Update Student</span>
+                
+                <label htmlFor="first name">First Name</label>
+                <input type="text" />
+
+                <label htmlFor="last name">Last Name</label>
+                <input type="text" />
+
+                <label htmlFor="email">Email</label>
+                <input type="text" />
+
+                <label htmlFor="gpa">GPA</label>
+                <input type="text" />
+
+                <button >Update</button>
+
+            </form>
+        </div>
     </section>
   )
 }
