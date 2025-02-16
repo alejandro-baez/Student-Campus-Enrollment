@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 import Campuses from './components/Campuses'
 import SingleCampus from './components/SingleCampus'
 import Students from './components/Students'
+import SingleStudent from './components/SingleStudent'
 
 function App() {
   return(
@@ -17,7 +18,8 @@ function App() {
           <Route path='/campuses' element={<Campuses/>}/>
           <Route path='/campuses/:id' element={<SingleCampus/>} />
           <Route path='/students' element={<Students/>} />
-        </Routes>
+          <Route path='/students/:id' element={<SingleStudent/>}/>
+        </Routes> 
       </main>
       <Footer/>
     </div>

@@ -32,7 +32,7 @@ const Students = () => {
         <div>
             {
                 students.map((student)=>(
-                    <Link to={`/students`} key={student.id} className='card-section flex flex-col items-center'>
+                    <Link to={`/students/${student.id}`} key={student.id} className='card-section flex flex-col items-center'>
                         <h3 className='font-semibold w-full text-center'>{student.first_name} {student.last_name}</h3>
                         <img src={student.imageUrl} alt="Default student picture" />
                         <p className='pt-1'>{student.email}</p>
