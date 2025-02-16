@@ -27,6 +27,7 @@ class UpdateStudent(BaseModel):
     email: Optional[EmailStr] = None
     imageUrl: Optional[str] = None
     gpa: Optional[Annotated[float,Field(ge=0,le=4)]] = None
+    campus_id: Optional[int] = None
 
 class CampusBase(BaseModel):
     name: str
