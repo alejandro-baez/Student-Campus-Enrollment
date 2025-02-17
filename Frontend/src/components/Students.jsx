@@ -3,6 +3,7 @@ import { fetchAllStudents, addStudent } from '../features/studentsSlice'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllCampuses } from '../features/campusesSlice'
+import { deleteSingleStudent } from '../features/singleStudentSlice'
 
 
 const Students = () => {
@@ -20,6 +21,12 @@ const Students = () => {
         evt.preventDefault();
         await dispatch(addStudent({ first_name, last_name, email, gpa, campus_id }));
       };
+    
+    const handleDelete = async (evt) => {
+    evt.preventDefault();
+    await dispatch(deleteSingleStudent(evt.target.value));
+    await dispatch(fetchAllStudents());
+    };
 
     useEffect(()=>{
         dispatch(fetchAllStudents())
@@ -36,7 +43,7 @@ const Students = () => {
                         <h3 className='font-semibold w-full text-center'>{student.first_name} {student.last_name}</h3>
                         <img src={student.imageUrl} alt="Default student picture" />
                         <p className='pt-1'>{student.email}</p>
-                        <button className='bg-red-400 h-5 w-5 flex items-center justify-center hover:cursor-pointer text-white  border-black hover:bg-red-600 mt-1 font-semibold shadow'>X</button>
+                        <button onClick={handleDelete} value={student.id} className='bg-red-400 h-5 w-5 flex items-center justify-center hover:cursor-pointer text-white  border-black hover:bg-red-600 mt-1 font-semibold shadow'>X</button>
                     </Link>
                 ))
             }

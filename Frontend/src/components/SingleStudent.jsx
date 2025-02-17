@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { fetchSingleStudent } from '../features/singleStudentSlice'
+import { fetchSingleStudent,updateSingleStudent } from '../features/singleStudentSlice'
 import { fetchAllCampuses } from '../features/campusesSlice'
 import { Link } from 'react-router-dom'
 
@@ -16,21 +16,33 @@ const SingleStudent = () => {
     const {id} = useParams()
     const dispatch = useDispatch()
     const {student} = useSelector(state => state.singleStudent.singleStudent)
-    console.log(student)
     
     const campuses = useSelector((state) => state.campuses.campuses);
-    const studentCampus = campuses.filter((campus) => campus.id == student.campus_id);
-    console.log(studentCampus)
+    const studentCampus = student?.campus_id 
+    ? campuses.filter((campus) => campus.id == student.campus_id) 
+    : [];
+
+    const handleUpdate = async (evt) => {
+        evt.preventDefault();
+        await dispatch(
+          updateSingleStudent({ id, first_name, last_name,gpa, email, campus_id })
+        );
+        await dispatch(fetchSingleStudent(id));
+        setFirstName("");
+        setLastName("");
+        setGPA('')
+        setEmail("");
+      };
 
     useEffect(()=>{
         const fetchData = async () =>{
             setLoading(true)
-            await dispatch(fetchSingleStudent(id))
             await dispatch(fetchAllCampuses())
+            await dispatch(fetchSingleStudent(id))
             setLoading(false)
         }
         fetchData()
-    },[dispatch])
+    },[dispatch,id])
 
     if (loading || !student) {
         return <div>Loading...</div>; 
@@ -39,12 +51,12 @@ const SingleStudent = () => {
 
 
   return (
-    <section>
+    <section className='section-container flex flex-col items-center space-y-8'>
         {/* student*/}
-        <div>
-            <h1>{student.first_name} {student.last_name}</h1>
-            <img src={student.imageUrl}/>
-            <p>{student.email}</p>
+        <div className='mt-5 text-center space-y-2 shadow-md px-8 py-4'>
+            <h1 className='font-bold text-3xl'>{student.first_name} {student.last_name}</h1>
+            <img src={student.imageUrl} />
+            <p className='text-lg'>{student.email}</p>
             <div>
                 <p>Attending: {studentCampus[0].name}</p>
                 <p>GPA: {student.gpa}</p>
@@ -53,23 +65,30 @@ const SingleStudent = () => {
         </div>
 
         {/* update form */}
-        <div>
-            <form>
-                <span>Update Student</span>
+        <div className='w-[100%]'>
+            <form className='form-section text-center space-y-1' onSubmit={handleUpdate}>
+                <span className='font-bold text-lg'>Update Student</span>
                 
                 <label htmlFor="first name">First Name</label>
-                <input type="text" />
+                <input type="text" className='input-field text-center' value={first_name} onChange={e=>setFirstName(e.target.value)} />
 
                 <label htmlFor="last name">Last Name</label>
-                <input type="text" />
+                <input type="text" className='input-field text-center' value={last_name} onChange={e=>setLastName(e.target.value)}/>
 
                 <label htmlFor="email">Email</label>
-                <input type="text" />
+                <input type="text" className='input-field text-center'value={email} onChange={e=>setEmail(e.target.value)}/>
 
                 <label htmlFor="gpa">GPA</label>
-                <input type="text" />
+                <input type="text" className='input-field text-center' value={gpa} onChange={e=>setGPA(parseFloat(e.target.value))} />
 
-                <button >Update</button>
+                <label>Campus</label>
+                <select className='input-field text-center' onChange={e=>setCampusId(parseInt(e.target.value))}>
+                    {campuses.map(campus=>(
+                        <option value={campus.id} key={campus.id}>{campus.name}</option>
+                    ))}
+                </select>
+
+                <button className='submit-btn' >Update</button>
 
             </form>
         </div>
