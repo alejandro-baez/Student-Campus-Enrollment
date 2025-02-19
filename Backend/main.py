@@ -19,7 +19,7 @@ class StudentBase(BaseModel):
     email: EmailStr
     imageUrl: Optional[str] = None
     gpa: Annotated[float,Field(ge=0,le=4)]
-    campus_id: int
+    campus_id: Optional[int] = None
 
 class UpdateStudent(BaseModel):
     first_name: Optional[str] = None

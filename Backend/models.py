@@ -17,7 +17,7 @@ class Student(Base):
     imageUrl: Mapped[Optional[str]] = mapped_column(nullable=False,default="https://d2jyir0m79gs60.cloudfront.net/news/images/successful-college-student-lg.png")
     gpa: Mapped[float]
 
-    campus_id: Mapped[int] = mapped_column(ForeignKey('campuses.id'))
+    campus_id: Mapped[Optional[int]] = mapped_column(ForeignKey('campuses.id'))
     campus: Mapped['Campus'] = relationship(back_populates='students')
 
 

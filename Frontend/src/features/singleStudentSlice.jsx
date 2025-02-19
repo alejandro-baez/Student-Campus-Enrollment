@@ -19,15 +19,12 @@ export const fetchSingleStudent = createAsyncThunk(
 
 export const updateSingleStudent = createAsyncThunk(
     "student/update",
-    async ({ id, first_name, last_name, gpa, email, campus_id }) => {
+    async (updatedData) => {
       try {
-        const { data } = await axios.put(`/api/students/${id}`, {
-          first_name,
-          last_name,
-          gpa,
-          email,
-          campus_id,
-        });
+        const {id, ...updateFields} = updatedData
+        const { data } = await axios.put(`/api/students/${id}`, updateFields);
+        
+        console.log(data)
         return data;
       } catch (err) {
         console.error(err);

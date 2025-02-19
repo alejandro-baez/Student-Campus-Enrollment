@@ -11,7 +11,7 @@ const Students = () => {
     const [last_name, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [gpa,setGPA] = useState('')
-    const [campus_id, setCampusId] = useState("");
+    const [campus_id, setCampusId] = useState();
     
     const dispatch = useDispatch();
     const students = useSelector(state => state.students.students)
@@ -20,6 +20,7 @@ const Students = () => {
     const handleSubmitCreate = async (evt) => {
         evt.preventDefault();
         await dispatch(addStudent({ first_name, last_name, email, gpa, campus_id }));
+        await dispatch(fetchAllStudents())
       };
     
     const handleDelete = async (evt) => {
@@ -67,9 +68,10 @@ const Students = () => {
 
                 <label htmlFor="last-name" className='label-form'>Campus</label>
                 <select className='input-field' onChange={e=>setCampusId(parseInt(e.target.value))}>
+                    <option value={''}>Select Campus</option>
                     {
                         campuses.map(campus=>(
-                            <option value={campus.id} key={campus.id}>{campus.name} </option>
+                            <option value={campus.id} key={campus.id}>{campus.name}</option>
                         ))
                     }
                 </select>
