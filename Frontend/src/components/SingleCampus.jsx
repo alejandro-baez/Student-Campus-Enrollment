@@ -16,7 +16,11 @@ const SingleCampus = () => {
 
     const handleUpdate = async (evt) => {
         evt.preventDefault();
-        await dispatch(updateSingleCampus({ id, name, address, description }));
+        const updatedData = {id}
+        if(name) updatedData.name = name;
+        if(address) updatedData.address = address;
+        if(description) updatedData.description = description;
+        await dispatch(updateSingleCampus(updatedData));
         await dispatch(fetchSingleCampus(id))
         setName("");
         setAddress("");

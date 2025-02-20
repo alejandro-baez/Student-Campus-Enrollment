@@ -19,13 +19,10 @@ export const fetchSingleCampus = createAsyncThunk(
 
   export const updateSingleCampus = createAsyncThunk(
     "campus/update",
-    async ({ id, name, address, description }) => {
+    async (updatedData) => {
       try {
-        const { data } = await axios.put(`/api/campuses/${id}`, {
-          name,
-          address,
-          description,
-        });
+        const {id,...updatedFields} = updatedData
+        const { data } = await axios.put(`/api/campuses/${id}`, updatedFields);
         return data;
       } catch (err) {
         console.error(err);
