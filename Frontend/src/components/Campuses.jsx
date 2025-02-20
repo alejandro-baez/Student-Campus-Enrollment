@@ -11,7 +11,6 @@ const Campuses = () => {
 
     const dispatch = useDispatch()
     const campuses = useSelector((state) => state.campuses.campuses)
-    console.log(campuses)
 
     const handleSubmitCreate = async (evt) => {
         evt.preventDefault();
