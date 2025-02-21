@@ -69,7 +69,7 @@ const Students = () => {
                 <input className='input-field' required="required" type='text' value={email} onChange={e=>setEmail(e.target.value)}/>
 
                 <label htmlFor="gpa" className='label-form'>GPA</label>
-                <input type="number" min={0} max={4} required="required"  className='input-field' value={gpa} onChange={e=> setGPA(parseFloat(e.target.value))}/>
+                <input type="number" step='0.01' min='0' max='4' required="required"  className='input-field' value={gpa} onChange={e=> setGPA(parseFloat(e.target.value))}/>
 
                 <label htmlFor="last-name" className='label-form'>Campus</label>
                 <select className='input-field' onChange={e=>setCampusId(parseFloat(e.target.value))}>

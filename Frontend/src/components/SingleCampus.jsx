@@ -12,7 +12,6 @@ const SingleCampus = () => {
     const campus = useSelector((state) => state.singleCampus.singleCampus.campus)
     const students = useSelector((state)=> state.students.students)
     const studentsEnrolled = students.filter((student) => student.campus_id == id);
-    console.log(studentsEnrolled)
 
     const [loading,setLoading] = useState(true)
 

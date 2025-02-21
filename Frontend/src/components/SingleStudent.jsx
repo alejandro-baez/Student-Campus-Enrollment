@@ -86,7 +86,7 @@ const SingleStudent = () => {
                 <input type="text" className='input-field text-center'value={email} onChange={e=>setEmail(e.target.value)}/>
 
                 <label htmlFor="gpa">GPA</label>
-                <input type="text" className='input-field text-center' value={gpa} onChange={e=>setGPA(parseFloat(e.target.value))} />
+                <input type="number" step='0.01' min='0' max='4' className='input-field text-center' value={gpa} onChange={e=>setGPA(parseFloat(e.target.value))} />
 
                 <label>Campus</label>
                 <select className='input-field text-center' onChange={e=>setCampusId(parseInt(e.target.value))}>
