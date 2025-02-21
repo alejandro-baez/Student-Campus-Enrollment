@@ -1,6 +1,8 @@
 # Objective
 
-Creating a RESTful web application that allows you to manage students and campuses. 
+Creating a RESTful web application that allows you to manage students and campuses.
+
+<img width="1198" alt="Homepage" src="https://github.com/user-attachments/assets/8c8d0f47-5656-4f01-bae8-fe0c47e6d7c2" />
 
 
 ### Finished product will allow users to:
