@@ -53,7 +53,7 @@ const SingleCampus = () => {
         <div className='mt-5 text-center space-y-2 shadow-md px-8 py-4 flex flex-col items-center'>
             <h1 className='font-bold text-3xl'>{campus.name}</h1>
             <img className='w-170' src={campus.imageUrl}/>
-            <p className='text-lg'>{campus.address}</p>
+            <p className='text-lg flex items-center'><span className='text-3xl'>📍</span>{campus.address}</p>
             <p className='text-lg'>{campus.description}</p>
             <div className='shadow-lg w-[30%] py-6 flex flex-col justify-center'>
                 <span className='text-lg font-bold'>Students Enrolled:</span>
