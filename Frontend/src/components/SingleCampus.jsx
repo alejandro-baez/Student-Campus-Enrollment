@@ -2,12 +2,18 @@ import React, {useEffect,useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { fetchSingleCampus,updateSingleCampus } from '../features/singleCampusSlice'
-
+import { fetchAllStudents } from '../features/studentsSlice'
+import { Link } from 'react-router-dom'
 
 const SingleCampus = () => {
     const {id} = useParams()
     const dispatch = useDispatch()
+    
     const campus = useSelector((state) => state.singleCampus.singleCampus.campus)
+    const students = useSelector((state)=> state.students.students)
+    const studentsEnrolled = students.filter((student) => student.campus_id == id);
+    console.log(studentsEnrolled)
+
     const [loading,setLoading] = useState(true)
 
     const [name, setName] = useState("");
@@ -30,7 +36,8 @@ const SingleCampus = () => {
     useEffect(()=> {
         const fetchData = async () =>{
             setLoading(true)
-            dispatch(fetchSingleCampus(id))
+            await dispatch(fetchSingleCampus(id))
+            await dispatch(fetchAllStudents())
             setLoading(false)
         }
 
@@ -44,11 +51,27 @@ const SingleCampus = () => {
   return (
     <section className='section-container flex flex-col align items-center space-y-8'>
         {/* campus */}
-        <div className='mt-5 text-center space-y-2 shadow-md px-8 py-4'>
+        <div className='mt-5 text-center space-y-2 shadow-md px-8 py-4 flex flex-col items-center'>
             <h1 className='font-bold text-3xl'>{campus.name}</h1>
             <img className='w-170' src={campus.imageUrl}/>
             <p className='text-lg'>{campus.address}</p>
             <p className='text-lg'>{campus.description}</p>
+            <div className='shadow-lg w-[30%] py-6 flex flex-col justify-center'>
+                <span className='text-lg font-bold'>Students Enrolled:</span>
+                <ul>
+                    {
+                        studentsEnrolled.length ? (
+                            studentsEnrolled.map(student => (
+                                <li key={student.id}>
+                                    <Link to={`/students/${student.id}`} className='inline-block hover:text-gray-500 hover:scale-110 font-medium '>{student.first_name}</Link>
+                                </li>
+                            ))
+                        ) : (
+                            <p>No Students Enrolled</p>
+                        )
+                    }
+                </ul>
+        </div>
         </div>
 
 
@@ -70,6 +93,22 @@ const SingleCampus = () => {
         </div>
 
         {/* students */}
+        {/* <div>
+            <span>Students Enrolled:</span>
+            <ul>
+                {
+                    studentsEnrolled.length ? (
+                        studentsEnrolled.map(student => (
+                            <li key={student.id}>
+                                <Link>{student.first_name}</Link>
+                            </li>
+                        ))
+                    ) : (
+                        <p>No Students Enrolled</p>
+                    )
+                }
+            </ul>
+        </div> */}
     </section>
   )
 }
