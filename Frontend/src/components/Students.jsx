@@ -21,6 +21,11 @@ const Students = () => {
         evt.preventDefault();
         await dispatch(addStudent({ first_name, last_name, email, gpa, campus_id }));
         await dispatch(fetchAllStudents())
+        setFirstName('')
+        setLastName('')
+        setEmail('')
+        setGPA('')
+        setCampusId()
       };
     
     const handleDelete = async (evt) => {
@@ -64,10 +69,10 @@ const Students = () => {
                 <input className='input-field' required="required" type='text' value={email} onChange={e=>setEmail(e.target.value)}/>
 
                 <label htmlFor="gpa" className='label-form'>GPA</label>
-                <input type="text" required="required" className='input-field' value={gpa} onChange={e=> setGPA(parseFloat(e.target.value))}/>
+                <input type="number" min={0} max={4} required="required"  className='input-field' value={gpa} onChange={e=> setGPA(parseFloat(e.target.value))}/>
 
                 <label htmlFor="last-name" className='label-form'>Campus</label>
-                <select className='input-field' onChange={e=>setCampusId(parseInt(e.target.value))}>
+                <select className='input-field' onChange={e=>setCampusId(parseFloat(e.target.value))}>
                     <option value={''}>Select Campus</option>
                     {
                         campuses.map(campus=>(
