@@ -22,6 +22,7 @@ const SingleStudent = () => {
     ? campuses.filter((campus) => campus.id == student.campus_id) 
     : [];
 
+
     const handleUpdate = async (evt) => {
         evt.preventDefault();
         const updatedData = { id };
@@ -64,7 +65,7 @@ const SingleStudent = () => {
             <img src={student.imageUrl} />
             <p className='text-lg'>{student.email}</p>
             <div>
-                <p><span className='font-semibold'>Attending:</span> {studentCampus[0]?.name ?  studentCampus[0].name : 'Student Not Currently Enrolled'}</p>
+                <p><span className='font-semibold'>Attending:</span> {studentCampus[0]?.name ?  <Link to={`/campuses/${studentCampus[0].id}`}>{studentCampus[0].name}</Link>  : 'Student Not Currently Enrolled'}</p>
                 <p><span className='font-semibold'>GPA:</span> {student.gpa}</p>
 
             </div>
