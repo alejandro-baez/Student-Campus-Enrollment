@@ -11,7 +11,7 @@ const Homepage = () => {
         </div>
 
         {/* right side */}
-        <div>
+        <div className='flex items-center'>
             <img src={Banner} alt="collage of education related materials" className='w-300' />
         </div>
     </section>

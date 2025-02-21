@@ -16,7 +16,7 @@ const Navbar = () => {
         </div>
 
         {/* nav */}
-        <div className='flex items-center w-1/4 gap-3 font-bold divide-x divide-gray-400' >
+        <div className='flex items-center justify-end w-1/4 gap-3 font-bold divide-x divide-gray-400' >
             <Link to='/campuses' className='hover:text-gray-400 px-2'>
                 Campuses
             </Link>
