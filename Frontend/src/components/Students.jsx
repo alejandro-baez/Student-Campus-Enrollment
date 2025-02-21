@@ -55,16 +55,16 @@ const Students = () => {
                 <span className='text-lg font-semibold mb-4'>Add Student</span>
 
                 <label htmlFor="first-name" className='label-form'>First Name</label>
-                <input className='input-field' type='text' value={first_name} onChange={e=>setFirstName(e.target.value)}/>
+                <input className='input-field' required="required" type='text' value={first_name} onChange={e=>setFirstName(e.target.value)}/>
 
                 <label htmlFor="last-name" className='label-form'>Last Name</label>
-                <input className='input-field' type='text' value={last_name} onChange={e=>setLastName(e.target.value)}/>
+                <input className='input-field' required="required" type='text' value={last_name} onChange={e=>setLastName(e.target.value)}/>
 
                 <label htmlFor="last-name" className='label-form' >Email</label>
-                <input className='input-field' type='text' value={email} onChange={e=>setEmail(e.target.value)}/>
+                <input className='input-field' required="required" type='text' value={email} onChange={e=>setEmail(e.target.value)}/>
 
                 <label htmlFor="gpa" className='label-form'>GPA</label>
-                <input type="text" className='input-field' value={gpa} onChange={e=> setGPA(parseFloat(e.target.value))}/>
+                <input type="text" required="required" className='input-field' value={gpa} onChange={e=> setGPA(parseFloat(e.target.value))}/>
 
                 <label htmlFor="last-name" className='label-form'>Campus</label>
                 <select className='input-field' onChange={e=>setCampusId(parseInt(e.target.value))}>
