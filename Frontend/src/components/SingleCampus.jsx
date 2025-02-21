@@ -55,7 +55,7 @@ const SingleCampus = () => {
             <img className='w-170' src={campus.imageUrl}/>
             <p className='text-lg flex items-center'><span className='text-3xl'>📍</span>{campus.address}</p>
             <p className='text-lg'>{campus.description}</p>
-            <div className='shadow-lg w-[30%] py-6 flex flex-col justify-center'>
+            <div className=' w-[30%] py-1 mb-1 flex flex-col justify-center'>
                 <span className='text-lg font-bold'>Students Enrolled:</span>
                 <ul>
                     {
